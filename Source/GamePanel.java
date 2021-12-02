@@ -20,6 +20,23 @@ public class GamePanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                int clickedX = e.getX();
+                int clickedY = e.getY();
+
+                int clickedRegionX = (clickedX - Commons.TowerZoneX) / Commons.TowerZoneDivideLength;
+                int clickedRegionY = (clickedY - Commons.TowerZoneY) / Commons.TowerZoneDivideLength;
+                System.out.println(   "Clicked x: " + String.valueOf(clickedX )  + " x region: " + String.valueOf(clickedRegionX) + " y: " + String.valueOf(clickedY )  +" y region: " +String.valueOf(clickedRegionY));
+
+                Vector2D towerPosition = new Vector2D( ((double) Commons.TowerZoneX + Commons.TowerZoneDivideLength*clickedRegionX), ((double) Commons.TowerZoneY + Commons.TowerZoneDivideLength*clickedRegionY  ));
+
+                /* Click outside of tower zone */
+                if (clickedX < Commons.TowerZoneX || clickedY < Commons.TowerZoneY || clickedX > Commons.TowerZoneX+Commons.TowerZoneWidth || clickedY > Commons.TowerZoneY + Commons.TowerZoneHeight )
+                    System.out.println("mouse clicked error,  not in tower zone!!");
+                else {
+                    ITowerFactory towerRegularFactory = new TowerRegularFactory();
+                    Tower regularTower = towerRegularFactory.createTower(towerPosition);
+                }
+
 
                 //Optional
             }
@@ -80,5 +97,6 @@ public class GamePanel extends JPanel {
         //TODO
         //Maybe some additional Drawings
         Game.getInstance().paint(g);
+
     }
 }

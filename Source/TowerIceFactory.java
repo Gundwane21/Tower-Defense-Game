@@ -2,6 +2,6 @@ public class TowerIceFactory implements ITowerFactory {
     //TODO
     @Override
     public Tower createTower(Vector2D position) {
-        return null;
+        return new TowerIce(position);
     }
 }

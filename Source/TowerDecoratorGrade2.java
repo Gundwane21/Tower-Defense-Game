@@ -1,3 +1,4 @@
-public class TowerDecoratorGrade2 extends TowerDecorator{
+public abstract class TowerDecoratorGrade2 extends TowerDecorator{
     //TODO
+
 }
