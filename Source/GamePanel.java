@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
 
                 int clickedRegionX = (clickedX - Commons.TowerZoneX) / Commons.TowerZoneDivideLength;
                 int clickedRegionY = (clickedY - Commons.TowerZoneY) / Commons.TowerZoneDivideLength;
-                System.out.println(   "Clicked x: " + String.valueOf(clickedX )  + " x region: " + String.valueOf(clickedRegionX) + " y: " + String.valueOf(clickedY )  +" y region: " +String.valueOf(clickedRegionY));
+                //System.out.println(   "Clicked x: " + String.valueOf(clickedX )  + " x region: " + String.valueOf(clickedRegionX) + " y: " + String.valueOf(clickedY )  +" y region: " +String.valueOf(clickedRegionY));
 
                 Vector2D towerPosition = new Vector2D( ((double) Commons.TowerZoneX + Commons.TowerZoneDivideLength*clickedRegionX), ((double) Commons.TowerZoneY + Commons.TowerZoneDivideLength*clickedRegionY  ));
 
@@ -35,6 +35,10 @@ public class GamePanel extends JPanel {
                 else {
                     ITowerFactory towerRegularFactory = new TowerRegularFactory();
                     Tower regularTower = towerRegularFactory.createTower(towerPosition);
+                    Game.getInstance().addTower(regularTower);
+                    IMonsterStrategy circularMonsterStrategy = new MonsterCircularStrategy();
+                    Monster monster = new Monster(1,circularMonsterStrategy);
+                    Game.getInstance().addMonster(monster);
                 }
 
 

@@ -3,6 +3,12 @@ import java.awt.*;
 public class TowerPoison extends Tower{
     //TODO
     private Vector2D position;
+
+    private final int range = 100;
+    private final int rateOfFire = 20 ;
+    private int damage= 10;
+    private int cost = 15;
+
     TowerPoison(Vector2D position){
         this.position = position;
         Graphics graphics = Display.getInstance().getGamePanel().getGraphics();
