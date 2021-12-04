@@ -7,6 +7,9 @@ import java.awt.event.MouseEvent;
 
 public class GamePanel extends JPanel {
 
+    private boolean isMouseClicked = false;
+    private Vector2D mouseClickedTowerPosition=null;
+
     public GamePanel() {
         this.setBackground(Color.DARK_GRAY);
 
@@ -33,15 +36,12 @@ public class GamePanel extends JPanel {
                 if (clickedX < Commons.TowerZoneX || clickedY < Commons.TowerZoneY || clickedX > Commons.TowerZoneX+Commons.TowerZoneWidth || clickedY > Commons.TowerZoneY + Commons.TowerZoneHeight )
                     System.out.println("mouse clicked error,  not in tower zone!!");
                 else {
-                    ITowerFactory towerRegularFactory = new TowerRegularFactory();
-                    Tower regularTower = towerRegularFactory.createTower(towerPosition);
-                    Game.getInstance().addTower(regularTower);
+                    isMouseClicked = true;
+                    mouseClickedTowerPosition = towerPosition;
                     IMonsterStrategy circularMonsterStrategy = new MonsterCircularStrategy();
                     Monster monster = new Monster(1,circularMonsterStrategy);
                     Game.getInstance().addMonster(monster);
                 }
-
-
                 //Optional
             }
         });
@@ -53,7 +53,28 @@ public class GamePanel extends JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-
+                char keyboardInput = e.getKeyChar();
+                if (isMouseClicked && keyboardInput == 'r'){
+                    ITowerFactory towerRegularFactory = new TowerRegularFactory();
+                    Tower regularTower = towerRegularFactory.createTower(mouseClickedTowerPosition);
+                    Game.getInstance().addTower(regularTower);
+                    mouseClickedTowerPosition = null;
+                    isMouseClicked = false;
+                }
+                else if(isMouseClicked && keyboardInput == 'p'){
+                    ITowerFactory towerPoisonFactory = new TowerPoisonFactory();
+                    Tower poisonTower = towerPoisonFactory.createTower(mouseClickedTowerPosition);
+                    Game.getInstance().addTower(poisonTower);
+                    mouseClickedTowerPosition = null;
+                    isMouseClicked = false;
+                }
+                else if(isMouseClicked && keyboardInput == 'i'){
+                    ITowerFactory towerIceFactory = new TowerIceFactory();
+                    Tower iceTower = towerIceFactory.createTower(mouseClickedTowerPosition);
+                    Game.getInstance().addTower(iceTower);
+                    mouseClickedTowerPosition = null;
+                    isMouseClicked = false;
+                }
                 //Optional
             }
         });

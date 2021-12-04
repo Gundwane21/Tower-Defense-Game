@@ -2,43 +2,58 @@ import java.awt.*;
 
 public class TowerIce extends Tower{
     //TODO
-    private Vector2D position;
     private int currentStep;
 
     private final int range = 75;
     private final int rateOfFire = 10 ;
-    private int damage=5;
-    private int cost =25;
+    private final int damage=5;
+    private final int cost =25;
 
     TowerIce(Vector2D position){
-        this.position = position;
+        super(position);
         this.currentStep = rateOfFire;
         Graphics graphics = Display.getInstance().getGamePanel().getGraphics();
         this.paint(graphics);
     }
 
-
-    @Override
-    public void step() {
-        //TODO
-
-        System.out.println("TowerIce step called");
+    public void calculateStepAndAttack(){
         if (currentStep == 0){
-
+            Game.getInstance().attackToMonsterIfRange(centerPosition,TowerType.Ice,range,damage);
             currentStep = rateOfFire;
         }
         else{
             currentStep--;
         }
+
+    };
+
+    //TODO
+    @Override
+    public void step() {
+
+        calculateStepAndAttack();
+        //TODO
     }
+
     @Override
     public void paint(Graphics g) {
         //TODO
-        System.out.println("TowerIce paint called");
-        System.out.println(   "Tower x: " + String.valueOf(position.getIntX() )  +  "Tower  y: " + String.valueOf(position.getIntY() )  );
+    //      System.out.println(   "Tower x: " + String.valueOf(upperLeftPosition.getIntX() )  +  "Tower  y: " + String.valueOf(upperLeftPosition.getIntY() )  );
 
         g.setColor(Color.BLUE);
-        g.fillOval(position.getIntX(), position.getIntY(), Commons.TowerZoneDivideLength  , Commons.TowerZoneDivideLength);
+        g.fillOval(upperLeftPosition.getIntX(), upperLeftPosition.getIntY(), Commons.TowerZoneDivideLength  , Commons.TowerZoneDivideLength);
+
+        /* draw dotted lines */
+        Graphics2D g2d = (Graphics2D) g.create();
+        final  float[] dash1 = {10.0f};
+        final  BasicStroke dashed = new BasicStroke(1.0f,
+                BasicStroke.CAP_BUTT,
+                BasicStroke.JOIN_MITER,
+                10.0f, dash1, 0.0f);
+        g2d.setStroke(dashed);
+
+        g2d.drawOval(centerPosition.getIntX()-(range), centerPosition.getIntY()-(range), range*2  , range*2);
+
 
     }
 }

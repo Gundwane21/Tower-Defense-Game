@@ -4,28 +4,33 @@ import java.awt.geom.Ellipse2D;
 
 public class TowerRegular extends Tower{
 
-    private Vector2D upperLeftPosition;
-    private Vector2D centerPosition;
     private int currentStep;
+    private int killCount=0;
+
 
     private final int range = 150;
     private final int rateOfFire = 20 ;
-    private int damage=20;
-    private int cost =20;
+    private final int damage=20;
+    private final int  cost =20;
 
     TowerRegular(Vector2D position){
-        this.upperLeftPosition = position;
-        Vector2D center = new Vector2D(upperLeftPosition.getIntX()+(Commons.TowerZoneDivideLength/2), upperLeftPosition.getIntY()+(Commons.TowerZoneDivideLength/2));
-        this.centerPosition = center;
+        super(position);
         this.currentStep = rateOfFire;
 
         Graphics graphics = Display.getInstance().getGamePanel().getGraphics();
         this.paint(graphics);
     }
 
+    /**
+     * calculates steps and only attack when its turn
+     * call game instance to reach monsters and damage them.
+     */
     public void calculateStepAndAttack(){
         if (currentStep == 0){
-            Game.getInstance().attackToMonsterIfRange(centerPosition,range,damage);
+            boolean isMonsterKilled = Game.getInstance().attackToMonsterIfRange(centerPosition,TowerType.Regular,range,damage);
+            if (isMonsterKilled){
+                incrementKillCount();
+            }
             currentStep = rateOfFire;
         }
         else{
@@ -39,8 +44,14 @@ public class TowerRegular extends Tower{
     public void step() {
 
         calculateStepAndAttack();
+        if (killCount == 1){
+            System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHAAAAAAAAAAAAAAAAAAAAAAAaaaa");
+            Game.getInstance().decorateTowerGrade1(this);
+        }
         //TODO
     }
+
+    public void incrementKillCount(){this.killCount++;};
 
     @Override
     public void paint(Graphics g) {
