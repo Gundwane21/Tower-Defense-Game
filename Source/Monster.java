@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Monster extends Entity {
     //TODO
@@ -17,12 +18,12 @@ public class Monster extends Entity {
     Monster(int waveCount,IMonsterStrategy monsterStrategy){
         this.health = 100 + waveCount*20 ;
         this.monsterStrategy =  monsterStrategy;
-        this.currentLeftPosition = new Vector2D(Commons.StartX,Commons.StartY);
+        this.currentLeftPosition = generateRandomStartPoint();
         this.currentCenterPosition = this.calculateCurrentCenter();
         /**
          * set monster initially to go up and its state to null
           */
-        this.currentDirection= new Vector2D(0,-1);
+        this.currentDirection= new Vector2D(1,-1);
         monsterState = new MonsterNullState(this);
 
         Graphics graphics = Display.getInstance().getGamePanel().getGraphics();
@@ -33,10 +34,15 @@ public class Monster extends Entity {
         return new Vector2D(this.currentLeftPosition.getX()+ Commons.TowerZoneDivideLength/2 , this.currentLeftPosition.getY() + Commons.TowerZoneDivideLength/2  );
     }
 
+//    public Vector2D calculateCurrentLeft(){
+//        return new Vector2D(this.currentCenterPosition.getX()- Commons.TowerZoneDivideLength/2 , this.currentCenterPosition.getY() - Commons.TowerZoneDivideLength/2  );
+//    }
     private void updateDirection(){
-        this.currentDirection = monsterStrategy.updateDirection(currentLeftPosition,currentDirection);
-        //System.out.println(currentDirection);
-        this.currentLeftPosition = this.currentLeftPosition.add(this.currentDirection);
+        this.currentDirection = monsterStrategy.updateDirection(currentCenterPosition,currentDirection);
+//        if(currentDirection.equals( new Vector2D(0,0))){
+//            Game.getInstance().takePlayerLife(this);
+//        }
+        this.currentLeftPosition = this.currentLeftPosition.add(this.currentDirection.multiply(speed));
         this.currentCenterPosition = this.calculateCurrentCenter();
     }
 
@@ -46,6 +52,14 @@ public class Monster extends Entity {
         this.updateDirection();
         this.monsterState.update();
     }
+
+    private Vector2D generateRandomStartPoint(){
+        Random rand = new Random();
+        int randX = rand.nextInt(50);
+        int randY = rand.nextInt(50)+300;
+        return new Vector2D(randX,randY);
+    }
+
 
     /**
      *  returns remaining health to game  */
@@ -77,12 +91,15 @@ public class Monster extends Entity {
     public void setSpeed(double speed){this.speed = speed;};
     public void decrementHealthByFive(){this.health=-this.health-5;};
 
+    public Vector2D getMonsterDirection(){
+        return this.currentDirection;
+    }
+    public int getMonsterKillReward(){return this.reward;};
+
     @Override
     public void paint(Graphics g) {
         //TODO
-        //System.out.println("Monster paint called");
-        //System.out.println(   "Tower x: " + String.valueOf(upperLeftPosition.getIntX() )  +  "Tower  y: " + String.valueOf(upperLeftPosition.getIntY() )  );
-        /* draw monster square */
+
         g.setColor(Color.YELLOW);
         g.fillRect(currentLeftPosition.getIntX(), currentLeftPosition.getIntY(), Commons.TowerZoneDivideLength  , Commons.TowerZoneDivideLength);
         g.setColor(Color.BLACK);

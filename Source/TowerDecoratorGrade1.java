@@ -9,12 +9,22 @@ public class TowerDecoratorGrade1 extends TowerDecorator{
     public void paint(Graphics g) {
         wrappedTower.paint(g);
         g.setColor(Color.BLACK);
-        g.drawString("Decor 1", wrappedTower.centerPosition.getIntX(),wrappedTower.centerPosition.getIntY());
+        g.drawString("*", wrappedTower.centerPosition.getIntX(),wrappedTower.centerPosition.getIntY());
+    }
+
+    @Override
+    public int getKillCount() {
+        return this.wrappedTower.getKillCount();
+    }
+
+    @Override
+    public int getTowerCost() {
+        return this.wrappedTower.getTowerCost();
     }
 
     @Override
     public void step() {
-        System.out.println("Tower Decorater 1 paint called");
+        System.out.println("Tower Decorater 1 step called");
         wrappedTower.step();
     }
 

@@ -3,6 +3,7 @@ import java.awt.*;
 public class TowerPoison extends Tower{
     //TODO
     private int currentStep;
+    private int killCount=0;
 
     private final int range = 100;
     private final int rateOfFire = 20 ;
@@ -37,6 +38,15 @@ public class TowerPoison extends Tower{
     }
 
     @Override
+    public int getKillCount() {return this.killCount;}
+
+    @Override
+    public int getTowerCost() {
+        return this.cost;
+    }
+
+
+    @Override
     public void paint(Graphics g) {
         //TODO
         //System.out.println(   "Tower x: " + String.valueOf(upperLeftPosition.getIntX() )  +  "Tower  y: " + String.valueOf(upperLeftPosition.getIntY() )  );
@@ -53,6 +63,7 @@ public class TowerPoison extends Tower{
                 BasicStroke.JOIN_MITER,
                 10.0f, dash1, 0.0f);
         g2d.setStroke(dashed);
+        g2d.setColor(Color.ORANGE);
 
         g2d.drawOval(centerPosition.getIntX()-(range), centerPosition.getIntY()-(range), range*2  , range*2);
 

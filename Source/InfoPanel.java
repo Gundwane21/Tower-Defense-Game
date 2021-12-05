@@ -9,7 +9,6 @@ public class InfoPanel extends JPanel {
     private JLabel currentWaveLabel;
     public InfoPanel() {
 
-
         this.setBackground(Color.WHITE);
         this.setPreferredSize(new Dimension(300, 400));
         this.setMinimumSize(new Dimension(300, 400));
@@ -54,5 +53,16 @@ public class InfoPanel extends JPanel {
 
     }
 
-    //TODO
+    public void setCurrentGoldLabel(String newGoldLabel){
+        this.currentGoldLabel.setText(newGoldLabel);
+    }
+    public void setCurrentLivesLabel(String newLivesLabel){
+        this.currentLivesLabel.setText(newLivesLabel);
+    }
+    public void setCurrentKillsLabel(String newKillsLabel){
+        this.currentKillsLabel.setText(newKillsLabel);
+    }
+    public void setCurrentWaveLabel(String newWaveLabel){
+        this.currentWaveLabel.setText(newWaveLabel);
+    }
 }

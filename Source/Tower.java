@@ -19,6 +19,8 @@ public abstract class Tower extends Entity{
     protected Vector2D calculateCenterPosition(Vector2D upperLeftPosition){
         return new Vector2D(upperLeftPosition.getIntX()+(Commons.TowerZoneDivideLength/2), upperLeftPosition.getIntY()+(Commons.TowerZoneDivideLength/2));
     }
+    public abstract int getKillCount();
+    public abstract int getTowerCost();
     public abstract void step();
     
 }

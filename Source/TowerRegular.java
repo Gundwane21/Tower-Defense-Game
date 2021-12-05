@@ -44,13 +44,19 @@ public class TowerRegular extends Tower{
     public void step() {
 
         calculateStepAndAttack();
-        if (killCount == 1){
-            System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHAAAAAAAAAAAAAAAAAAAAAAAaaaa");
-            Game.getInstance().decorateTowerGrade1(this);
-        }
+
         //TODO
     }
 
+    @Override
+    public int getKillCount(){return this.killCount;}
+
+    @Override
+    public int getTowerCost() {
+        return this.cost;
+    }
+
+    ;
     public void incrementKillCount(){this.killCount++;};
 
     @Override
@@ -69,6 +75,7 @@ public class TowerRegular extends Tower{
                 BasicStroke.JOIN_MITER,
                 10.0f, dash1, 0.0f);
         g2d.setStroke(dashed);
+        g2d.setColor(Color.ORANGE);
 
         g2d.drawOval(centerPosition.getIntX()-(range), centerPosition.getIntY()-(range), range*2  , range*2);
 

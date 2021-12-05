@@ -3,6 +3,7 @@ import java.awt.*;
 public class TowerIce extends Tower{
     //TODO
     private int currentStep;
+    private int killCount=0;
 
     private final int range = 75;
     private final int rateOfFire = 10 ;
@@ -18,7 +19,9 @@ public class TowerIce extends Tower{
 
     public void calculateStepAndAttack(){
         if (currentStep == 0){
-            Game.getInstance().attackToMonsterIfRange(centerPosition,TowerType.Ice,range,damage);
+            boolean isMonsterKilled = Game.getInstance().attackToMonsterIfRange(centerPosition,TowerType.Ice,range,damage);
+            if(isMonsterKilled)
+                incrementKillCount();
             currentStep = rateOfFire;
         }
         else{
@@ -34,6 +37,17 @@ public class TowerIce extends Tower{
         calculateStepAndAttack();
         //TODO
     }
+
+
+    @Override
+    public int getKillCount() {return this.killCount;}
+
+    @Override
+    public int getTowerCost() {
+        return this.cost;
+    }
+
+    public void incrementKillCount(){this.killCount++;};
 
     @Override
     public void paint(Graphics g) {
@@ -51,6 +65,7 @@ public class TowerIce extends Tower{
                 BasicStroke.JOIN_MITER,
                 10.0f, dash1, 0.0f);
         g2d.setStroke(dashed);
+        g2d.setColor(Color.ORANGE);
 
         g2d.drawOval(centerPosition.getIntX()-(range), centerPosition.getIntY()-(range), range*2  , range*2);
 
