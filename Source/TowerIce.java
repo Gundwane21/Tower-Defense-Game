@@ -13,10 +13,14 @@ public class TowerIce extends Tower{
     TowerIce(Vector2D position){
         super(position);
         this.currentStep = rateOfFire;
-        Graphics graphics = Display.getInstance().getGamePanel().getGraphics();
-        this.paint(graphics);
+
     }
 
+    /**
+     * similar to regularTower
+     * calculates its step and if in range attack
+     * and kill monster
+     */
     public void calculateStepAndAttack(){
         if (currentStep == 0){
             boolean isMonsterKilled = Game.getInstance().attackToMonsterIfRange(centerPosition,TowerType.Ice,range,damage);
@@ -38,17 +42,32 @@ public class TowerIce extends Tower{
         //TODO
     }
 
-
+    /**
+     *
+     * @return killCount of tower
+     */
     @Override
-    public int getKillCount() {return this.killCount;}
+    public int getKillCount(){return this.killCount;}
 
+    /**
+     *
+     * @return cost of creating this tower
+     */
     @Override
     public int getTowerCost() {
         return this.cost;
     }
 
+    /**
+     * increments the killcount of this tower
+     */
     public void incrementKillCount(){this.killCount++;};
 
+    /**
+     * draw the tower as blue and
+     * draws dotted line that represents its range
+     * Graphics @param g
+     */
     @Override
     public void paint(Graphics g) {
         //TODO

@@ -6,6 +6,10 @@ public abstract class MonsterState<monster> implements IPaintable{
     protected TowerType attackingTowerType=null;
     protected int stepCounter=0;
 
+    /**
+     * MonsterState Constructor
+     * Monster @param monster
+     */
     MonsterState(Monster monster){
         this.monster = monster;
     }
@@ -13,14 +17,11 @@ public abstract class MonsterState<monster> implements IPaintable{
     public abstract void update();
     /**
      * same function for all monster states so no need for abstract
-     * @param towerType
+     * TowerTyoe enum @param towerType
      */
     public void updateAttackingTower(TowerType towerType){
         this.attackingTowerType = towerType;
     };
 
-    /*public void incrementStepCounter(){
-        this.stepCounter++;
-    }*/
 
 }

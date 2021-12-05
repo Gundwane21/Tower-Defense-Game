@@ -1,5 +1,4 @@
 public class MonsterCircularStrategy implements IMonsterStrategy {
-    //TODO
 
     /**
      * initialy in left
@@ -15,14 +14,15 @@ public class MonsterCircularStrategy implements IMonsterStrategy {
     private final Vector2D c = new Vector2D(300,300);
     private final Vector2D d =  new Vector2D(100,300);
 
+    /**
+     * It calculates the new direction for Circular
+     * move of monster. It does not know anything rather than paramaters
+     * Current position @param position
+     * previous direction @param direction
+     * @return newDirection
+     */
     @Override
     public Vector2D updateDirection(Vector2D position, Vector2D direction) {
-        //System.out.println("Monster Circular Strategy Called");
-        //System.out.println(position.getIntY() >= (Commons.StartHeight + Commons.TowerZoneHeight ));
-        //System.out.println(position.getIntX() < (Commons.StartWidth + Commons.TowerZoneWidth ));
-        System.out.println("y:" + String.valueOf(( b.getIntY()  - position.getIntY())) + " x: "+  String.valueOf( position.getIntX() - b.getIntX()  ) );
-
-        //Vector2D upperLeft = new Vector2D(position.getX()- Commons.TowerZoneDivideLength/2 , position.getY() - Commons.TowerZoneDivideLength/2 );
 
         if ( inLeft && ( ( a.getIntY()  - position.getIntY()) == a.getIntX() - position.getIntX()) ){
             inUp = true;
@@ -52,6 +52,13 @@ public class MonsterCircularStrategy implements IMonsterStrategy {
             inUp = false;
             inRight = false;
             inLeft = false;
+        }
+        else if( !inLeft && !inRight && !inUp && !inDown && !inEnd){
+            inLeft = true;
+            inEnd = false;
+            inDown = false;
+            inUp = false;
+            inRight = false;
         }
 
         if(inLeft){

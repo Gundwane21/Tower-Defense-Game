@@ -10,7 +10,9 @@ public class MonsterIceState extends MonsterState{
     //TODO
 
     /**
+     * Overrides abstract MonsterState update
      * updates speed according to step and restores the speed and state of the monster after 3 steps
+     * Go back to MonsterNullState after 3 steps
      */
     @Override
     public void update() {
@@ -27,11 +29,14 @@ public class MonsterIceState extends MonsterState{
         }
     }
 
-
+    /**
+     * overrides abstract paint
+     * paints blue while in effect of MonsterIceState
+     * Graphics @param g
+     */
     @Override
     public void paint(Graphics g) {
         //TODO
-        System.out.println("Monster Ice State paint called!!!!");
         g.setColor(Color.BLUE);
         g.drawRect(monster.currentLeftPosition.getIntX(), monster.currentLeftPosition.getIntY(), Commons.TowerZoneDivideLength  , Commons.TowerZoneDivideLength);
 

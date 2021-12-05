@@ -9,6 +9,11 @@ public class MonsterNullState extends MonsterState{
         super(monster);
     }
 
+    /**
+     * Overrides abstract MonsterState update
+     * It changes state when a Ice Tower or Poison Tower is
+     * in range
+     */
     @Override
     public void update() {
         if(attackingTowerType == TowerType.Ice){

@@ -7,7 +7,11 @@ public class MonsterPoisonState extends MonsterState{
         super(monster);
     }
 
-    //TODO
+    /**
+     * Overrides abstract MonsterState update
+     * it checks the counter and decreases the health by
+     * 5 for 3 steps. Then it returns back to MonsterNullState
+     */
     @Override
     public void update() {
 
@@ -23,10 +27,14 @@ public class MonsterPoisonState extends MonsterState{
         }
     }
 
+    /**
+     * it overrides abstract MonsterState paint
+     * paints a green box around monster while in poison
+     * Graphics @param g
+     */
     @Override
     public void paint(Graphics g) {
         //TODO
-        System.out.println("Monster Poison State paint called!!!!");
         g.setColor(Color.GREEN);
         g.drawRect(monster.currentLeftPosition.getIntX(), monster.currentLeftPosition.getIntY(), Commons.TowerZoneDivideLength  , Commons.TowerZoneDivideLength);
 

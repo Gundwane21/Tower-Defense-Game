@@ -5,7 +5,7 @@ public abstract class Tower extends Entity{
 
     /**
      * simple constructor that calculates upperleft and center positions
-     * @param position
+     * Vector2D upperLeftPosition @param position
      */
     Tower(Vector2D position){
         this.upperLeftPosition=position;
@@ -14,12 +14,22 @@ public abstract class Tower extends Entity{
 
     /**
      * calculates the center position of the tower given upper left position of the tower
-     * @param upperLeftPosition
+     * Vector2D @param upperLeftPosition
      */
     protected Vector2D calculateCenterPosition(Vector2D upperLeftPosition){
         return new Vector2D(upperLeftPosition.getIntX()+(Commons.TowerZoneDivideLength/2), upperLeftPosition.getIntY()+(Commons.TowerZoneDivideLength/2));
     }
+
+    /**
+     * abstract method
+     * @return killCount of Tower
+     */
     public abstract int getKillCount();
+
+    /**
+     * abstract method
+     * @return cost of creating specific tower
+     */
     public abstract int getTowerCost();
     public abstract void step();
     

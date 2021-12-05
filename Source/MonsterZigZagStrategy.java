@@ -1,5 +1,5 @@
 public class MonsterZigZagStrategy implements IMonsterStrategy {
-    //TODO
+
     private boolean inLeft = true;
     private boolean inUp = false;
     private boolean inRight = false;
@@ -15,11 +15,16 @@ public class MonsterZigZagStrategy implements IMonsterStrategy {
     private final Vector2D b = new Vector2D(300,100);
     private final Vector2D c = new Vector2D(300,300);
 
-
+    /**
+     * It calculates the new direction for ZigZag
+     * move of monster. It does not know anything rather than paramaters
+     * Current position @param position
+     * previous direction @param direction
+     * @return newDirection
+     */
     @Override
     public Vector2D updateDirection(Vector2D position, Vector2D direction) {
 
-        Vector2D upperLeft = new Vector2D(position.getX()- Commons.TowerZoneDivideLength/2 , position.getY() - Commons.TowerZoneDivideLength/2 );
         int rightBoundary = position.getIntX() + Commons.TowerZoneDivideLength/2;
         int leftBoundary = position.getIntX() - Commons.TowerZoneDivideLength/2;
         int upBoundary = position.getIntY() - Commons.TowerZoneDivideLength/2;
@@ -46,6 +51,13 @@ public class MonsterZigZagStrategy implements IMonsterStrategy {
             inRight=false;
             inDown=true;
             inEnd = false;
+        }
+        else if( !inLeft && !inRight && !inUp && !inDown && !inEnd){
+            inLeft = true;
+            inEnd = false;
+            inDown = false;
+            inUp = false;
+            inRight = false;
         }
         /**
          * monster reached to the start zone

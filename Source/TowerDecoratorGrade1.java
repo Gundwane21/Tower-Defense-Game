@@ -5,6 +5,11 @@ public class TowerDecoratorGrade1 extends TowerDecorator{
         super(sourceTower);
     }
 
+    /**
+     * It first calls wrapped object paint
+     * then wraps it around with its own paint
+     * Graphics @param g
+     */
     @Override
     public void paint(Graphics g) {
         wrappedTower.paint(g);
@@ -12,19 +17,29 @@ public class TowerDecoratorGrade1 extends TowerDecorator{
         g.drawString("*", wrappedTower.centerPosition.getIntX(),wrappedTower.centerPosition.getIntY());
     }
 
+    /**
+     * uses wrapped objects method
+     * @return killCountOfTower
+     */
     @Override
     public int getKillCount() {
         return this.wrappedTower.getKillCount();
     }
 
+    /**
+     * uses wrapped objects cost
+     * @return cost of tower
+     */
     @Override
     public int getTowerCost() {
         return this.wrappedTower.getTowerCost();
     }
 
+    /**
+     * it calls wrapped objects step
+     */
     @Override
     public void step() {
-        System.out.println("Tower Decorater 1 step called");
         wrappedTower.step();
     }
 

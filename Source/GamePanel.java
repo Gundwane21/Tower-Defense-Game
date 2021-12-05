@@ -19,6 +19,15 @@ public class GamePanel extends JPanel {
         //Optional
         //Can be used to add Towers
         //Remove if not used
+        /**
+         * it listenes mouse clicks. if a valid click is made
+         * save it for paint and wait for a key press
+         * it calls Game instance to check gold and make
+         * the creation. It does not know anything about the conclusion
+         * it only passes the keypress and click information
+         *
+         *
+         */
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -41,9 +50,9 @@ public class GamePanel extends JPanel {
             }
         });
 
-        //Optional
-        //Can be used to add Towers
-        //Remove if not used
+        /**
+         * 
+         */
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -65,6 +74,11 @@ public class GamePanel extends JPanel {
         return new Dimension(Commons.GamePanelWidth, Commons.GameHeight);
     }
 
+    /**
+     * additional functionality added as if a valid click is made
+     * and no character is inputted paint selected the box with white
+     * @param g
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);

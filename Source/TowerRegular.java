@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-
 
 public class TowerRegular extends Tower{
 
@@ -17,15 +15,13 @@ public class TowerRegular extends Tower{
         super(position);
         this.currentStep = rateOfFire;
 
-        Graphics graphics = Display.getInstance().getGamePanel().getGraphics();
-        this.paint(graphics);
     }
 
     /**
      * calculates steps and only attack when its turn
      * call game instance to reach monsters and damage them.
      */
-    public void calculateStepAndAttack(){
+    private void calculateStepAndAttack(){
         if (currentStep == 0){
             boolean isMonsterKilled = Game.getInstance().attackToMonsterIfRange(centerPosition,TowerType.Regular,range,damage);
             if (isMonsterKilled){
@@ -44,21 +40,35 @@ public class TowerRegular extends Tower{
     public void step() {
 
         calculateStepAndAttack();
-
         //TODO
     }
 
+    /**
+     *
+     * @return killCount of tower
+     */
     @Override
     public int getKillCount(){return this.killCount;}
 
+    /**
+     *
+     * @return cost of creating this tower
+     */
     @Override
     public int getTowerCost() {
         return this.cost;
     }
 
-    ;
+    /**
+     * increments the killcount of this tower
+     */
     public void incrementKillCount(){this.killCount++;};
 
+    /**
+     * draw the tower as red and
+     * draws dotted line that represents its range
+     * Graphics @param g
+     */
     @Override
     public void paint(Graphics g) {
 
@@ -79,6 +89,5 @@ public class TowerRegular extends Tower{
 
         g2d.drawOval(centerPosition.getIntX()-(range), centerPosition.getIntY()-(range), range*2  , range*2);
 
-        //TODO
     }
 }

@@ -53,15 +53,41 @@ public class InfoPanel extends JPanel {
 
     }
 
+    /**
+     * it updates the jlabel gold,
+     * it is called from Game instance whenever gold is changed
+     * @param newGoldLabel
+     */
     public void setCurrentGoldLabel(String newGoldLabel){
         this.currentGoldLabel.setText(newGoldLabel);
     }
+
+    /**
+     *
+     * it updates the jlabel remaining lives,
+     * it is called from Game instance whenever lives is changed
+     * @param newLivesLabel
+     */
     public void setCurrentLivesLabel(String newLivesLabel){
         this.currentLivesLabel.setText(newLivesLabel);
     }
+
+    /**
+     *
+     * it updates the jlabel killed monsters count,
+     * it is called from Game instance whenever killCount is changed
+     * @param newKillsLabel
+     */
     public void setCurrentKillsLabel(String newKillsLabel){
         this.currentKillsLabel.setText(newKillsLabel);
     }
+
+    /**
+     *
+     * it updates the jlabel wave number,
+     * it is called from Game instance whenever new wave is started
+     * @param newWaveLabel
+     */
     public void setCurrentWaveLabel(String newWaveLabel){
         this.currentWaveLabel.setText(newWaveLabel);
     }

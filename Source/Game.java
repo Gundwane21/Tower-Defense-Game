@@ -26,7 +26,8 @@ public class Game {
     //TODO
 
     public Game() {
-        /*  Create Empty Lists */
+        /**
+         *  Create Empty Lists */
         monsters  = new ArrayList<Monster>();
         towers = new ArrayList<Tower>();
         decoratedTowers = new ArrayList<Tower>();
@@ -35,6 +36,10 @@ public class Game {
         //TODO
     }
 
+    /**
+     * using graphics call all entity paints
+     * @param g
+     */
     public void paint(Graphics g) {
         for (Monster monster: monsters) {
             monster.paint(g);
@@ -45,11 +50,20 @@ public class Game {
         //TODO
     }
 
+    /**
+     * call step for all monster and tower entities
+     * if monster reaches the destination take one life and
+     * update infopanel.
+     * if towers kill count passes decorator limits
+     * decorate them accordingly.
+     */
     public void step() {
         for (Monster monster: monsters) {
             monster.step();
             /**
              * if monster stopped it means monster reached the starting point
+             * one life is taken, succesfull monster is removed from the list
+             * for next wave and infopanel is updated
              */
             Vector2D direction = monster.getMonsterDirection();
             if (direction.equals(new Vector2D(0,0))){
@@ -58,11 +72,17 @@ public class Game {
                 toRemoveMonsters.add(monster);
             }
         }
+        /**
+         * removes the succesfull monsters from the list
+         */
         for (int i = 0 ; i < toRemoveMonsters.size(); i++){
             monsters.remove(toRemoveMonsters.get(i));
         }
 
-        /* check kill count of every tower if done decorate it */
+        /**
+         *  check kill count of every tower if done decorate it
+         *
+          */
         for ( int i = 0; i < towers.size() ; i++)
         {
             if(towers.get(i) !=null) {
@@ -92,18 +112,20 @@ public class Game {
         decoratedTowers = new ArrayList<Tower>();
 
         Display.getInstance().getGamePanel().repaint();
-        //TODO
     }
 
     public static void startGame() {
         Display.getInstance().setVisible(true);
-        //Initial wave
+        /**
+         * Initial wave of the game
+         */
         Game.getInstance().startNewWave();
 
         new Timer(5, actionEvent -> {
             if( Game.getInstance().monsters.isEmpty() ){
                 /**
-                 * Game is over!
+                 * If no nore live is left
+                 * Game is over!Exitted.
                  */
                 if(Game.getInstance().currentLives < 1){
                     System.exit(0);
@@ -117,10 +139,17 @@ public class Game {
         }).start();
     }
 
-
+    /**
+     * increments currentWave
+     */
     private void incrementWave(){
         this.currentWave++;
     }
+
+    /**
+     * it starts the newWave by adding new monsters to
+     * the monster list depending on wave number
+     */
     private void startNewWave(){
         for(int i=0 ; i < currentWave ; i++){
             IMonsterStrategy newMonsterStrategy= generateRandomStrategy();
@@ -129,6 +158,11 @@ public class Game {
         }
     }
 
+    /**
+     * it is used to generate a random MonsterStrategy
+     * Circular or ZigZag
+     * @return IMonsterStrategy
+     */
     private IMonsterStrategy generateRandomStrategy(){
         Random rand = new Random();
         int randStrategy = rand.nextInt(2);
@@ -144,11 +178,14 @@ public class Game {
     /**
      * tower makes attack possible by using this function,
      * it returns true or false depending the closest monster is killed
+     * or not. If a monster is killed it is removed from
+     * monsters list and gold is increased. Since gold is changed
+     * infopanel is updated
      * @param towerCenterLocation
      * @param towerType
      * @param range
      * @param damage
-     * @return
+     * @return boolean
      */
     public boolean attackToMonsterIfRange(Vector2D towerCenterLocation, TowerType towerType,double range,double damage){
         double closestDistance = Double.max(Commons.GamePanelWidth,Commons.GameHeight);
@@ -162,9 +199,8 @@ public class Game {
                 closestMonster = monster;
             }
         }
-        if(closestMonster == null)
-            System.out.println("Game attackToMonsterIfRange failed!!!");
-        else{
+
+        if (closestMonster != null){
             /*  attack to monster */
             if( closestDistance <= range ){
                 double remainingHealth = closestMonster.getAttacked(damage,towerType);
@@ -184,11 +220,15 @@ public class Game {
         return false;
     }
 
-    public void takePlayerLife(Monster monster){
-        this.currentLives -- ;
-        monsters.remove(monster);
-    }
 
+    /**
+     * called from display game panel when there is a valid click and keyboard input
+     * it calls necessary factory depending keyboardInput,
+     * if current gold is enough it decreases currentGold and update infopanel
+     * and adds tower to tower List
+     * @param mouseClickedTowerPosition
+     * @param keyboardInput
+     */
     public void createTowerFactory(Vector2D mouseClickedTowerPosition,char keyboardInput){
         if ( keyboardInput == 'r'){
             ITowerFactory towerRegularFactory = new TowerRegularFactory();
@@ -219,14 +259,15 @@ public class Game {
         }
     }
 
-    public void addTower(Tower tower){ this.getTowers().add(tower);}
-    public ArrayList<Tower> getTowers(){return this.towers;}
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Game::startGame);
     }
 }
 
+/**
+ * Tower type enumaration to be used in attack
+ */
 enum TowerType{
     Regular,Ice,Poison
 }
