@@ -8,10 +8,6 @@ This Game is written by java 8. It consists of a small graphical Tower Defense g
 - Decorator
 - Singleton
 
-The objective of this assignment is to learn the basics of object oriented design principles, Unified Modeling
-Language (UML) and design patterns. You will build a small graphical Tower Defense game. You will
-write javadoc for your implementation and create a UML class diagram.
-
 # Details
 In this game, we will have four main game entity classes. Monster class for simulating the monsters and
 TowerRegular, TowerIce, and TowerPoison classes for defense towers you will place. You will use
