@@ -45,9 +45,21 @@ damage.
 - MonsterPoisonState, MonsterIceState: The concrete state classes extend the MonsterState
 class.
 
+# UML DIAGRAM
+
+Since it is rendered with low quality go to docs/uml.png to see the uml hd
+![Screenshot](docs/uml.png)
+
+# Example images from the game
+
+![Screenshot](docs/images/empty_tower.png)
+![Screenshot](docs/images/ice_tower.png)
+![Screenshot](docs/images/poison_tower.png)
+![Screenshot](docs/images/regular_tower.png)
+
 
 # Run (You need java to be installed)
-git clone 
-cd Source
-make all
-make run
+- git clone https://github.com/Gundwane21/Tower-Defense-Game.git 
+- cd Source
+- make all
+- make run
